@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+
+{% block title %} Lista filmów {% endblock %}
+
+{% block website %}
+    <div class="jumbotron">
+        {% if user.is_authenticated %}
+            <h1 class="display-4">Witaj {{ user.username }}</h1>
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </div>
+
+    <hr>
+
+    <a href="{% url 'new_movie' %}">Dodaj nowy film</a>
+
+    {% if movies|length == 0 %}
+        <h2>Brak filmów</h2>
+    {% else %}
+        <!--<h2> Ilość filmów w bazie danych: {{  movies|length  }}</h2>-->
+
+        {% for movie in movies %}
+            <div class="card" style="width: 30rem;">
+              <div class="card-body">
+                  <img src="/media/{{ movie.poster }}" class="movie-poster">
+                  <div class="row">
+                      <div class="col-9">
+                          <h5 class="card-title">{{  movie  }}</h5>
+                      </div>
+                      <div class="col-3">
+                          <a href="{% url 'update_movie' movie.id %}">Edytuj</a>
+                          <a href="{% url 'delete_movie' movie.id %}">Usuń</a>
+                      </div>
+                  </div>
+                <p class="card-text">{{ movie.description }}</p>
+              </div>
+            </div>
+
+        {% endfor %}
+    {% endif %}
+{% endblock %}

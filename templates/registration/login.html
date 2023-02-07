@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+{% load bootstrap %}
+{% block title %} Zaloguj się {% endblock %}
+
+{% block website %}
+
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title"><i class="fa-solid fa-user"></i> Zaloguj się</h5>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|bootstrap }}
+            <button type="submit" class="btn btn-secondary">Zaloguj</button>
+        </form>
+      </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+{% load bootstrap %}
+{% block title %} Film form {% endblock %}
+
+{% block website %}
+    <div class="card" style="width: 30rem; float: left; margin-right: 1rem;">
+          <div class="card-body">
+              {% if new %}
+                <h5 class="card-title"> Nowy film</h5>
+              {% else %}
+                <h5 class="card-title"> Edytuj film</h5>
+              {% endif %}
+
+          <form method="post" enctype="multipart/form-data" >
+          {% csrf_token %}
+          {{ form|bootstrap }}
+          {{ form_additional|bootstrap }}
+              {% if new %}
+                <button type="submit">Nowy film</button>
+              {% else %}
+                <button type="submit">Edytuj film</button>
+
+    </form>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="card" style="width: 30rem; float: left; margin-right: 1rem;">
+          <div class="card-body">
+              <h5 class="card-title"> Oceń film </h5>
+
+          <form method="post" enctype="multipart/form-data" >
+              {% csrf_token %}
+              {{ form_rate|bootstrap }}
+                <button type="submit">Oceń</button>
+
+    </form>
+        </div>
+    </div>
+
+    {% for rate in rate %}
+        <h4>Gwiazdki : {{rate.stars}}</h4>
+        <p>{{rate.review}}</p>
+    {% endfor %}
+
+    <a href="{% url 'all_movies' %}">Cofnij</a>
+{% endblock %}
